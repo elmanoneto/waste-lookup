@@ -8,7 +8,13 @@ import 'react-block-ui/style.css'
 import { addFavouritres, removeFavourites } from '../ducks/actions'
 
 class List extends Component {
-    _showResult() {        
+    _showResult() {
+        if (this.props.noResult) {
+            return (
+                <NoResult>No result for this search.</NoResult>
+            )
+            
+        }
         const result = this.props.handledData.map((item, i) => (
             <Wrapper key={ i }>
                 <Result theme={ item.favourite ? '#23995C' : '#AAAAAA' }>
@@ -38,7 +44,8 @@ const mapStateToProps = state => ({
     isLoading: state.appReducer.isLoading,
     handledData: state.appReducer.handledData,
     favourites: state.appReducer.favourites,
-    data: state.appReducer.data
+    data: state.appReducer.data,
+    noResult: state.appReducer.noResult
 })
 
 const mapDispatchToProps = {
@@ -73,4 +80,8 @@ const Result = styled.div`
         cursor: pointer;
         position: relative;
         ${({ theme }) => `color: ${ theme }`}
+`
+
+const NoResult = styled.div`
+    text-align: center;
 `

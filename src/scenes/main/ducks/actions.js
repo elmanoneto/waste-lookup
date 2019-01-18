@@ -21,6 +21,11 @@ export const search = (value, data) => {
 
             const result = await findByKeyword(value, data)
 
+            if (!result.length) {
+                dispatch({ type: types.NO_RESULT })
+                return
+            }
+
             dispatch({ type: types.ADD_HANDLED_DATA, payload: result })
         } catch(err) {
             console.log(err)

@@ -7,7 +7,8 @@ const INITIAL_STATE = {
     data: [],
     handledData: [],
     favourites: [],
-    isLoading: false
+    isLoading: false,
+    noResult: false
 }
 
 const appReducer = (state = INITIAL_STATE, action) => {
@@ -27,9 +28,11 @@ const appReducer = (state = INITIAL_STATE, action) => {
         case types.CHANGE_SEARCH:
             return { ...state, search: action.payload }
         case types.ADD_HANDLED_DATA:
-            return { ...state, handledData: action.payload, isLoading: false }
+            return { ...state, handledData: action.payload, isLoading: false, noResult: false }
         case types.ADD_DATA:
             return { ...state, data: action.payload }
+        case types.NO_RESULT:
+            return { ...state, noResult: true, isLoading: false }
         default:
             return { ...state }
     }
